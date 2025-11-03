@@ -1,0 +1,42 @@
+ $ curl -I http://scanme.nmap.org
+HTTP/1.1 200 OK
+Date: Mon, 03 Nov 2025 11:26:48 GMT
+Server: Apache/2.4.7 (Ubuntu)
+Accept-Ranges: bytes
+Vary: Accept-Encoding
+Content-Type: text/html
+
+What status line did you get and what does it mean?
+HTTP/1.1 200 OK. the request succeeded
+What is the Server header value? Is it specific (nginx/1.22) or generic?
+Apache/2.4.7 it is a generic server header value
+
+curl http://scanme.nmap.org-o scanme.html
+head -n 40 scanme.html
+What is the <title> of the page (if present)?
+GO ahead and ScanMe!
+Do you see any <form> elements? What are their action attributes (copy them)?
+yes there is form elements. 
+<form class="nst-search" id="nst-head-search" action="/search/"> 
+
+Did requests and curl report the same status and server header?
+Yes
+If different, what header or other factor might explain it (redirects, default headers, user agent)?
+
+Did the response change (status, server header, content-length) when the User-Agent was MyTestAgent/1.0?
+yeah the status is now HTTP/2 200
+ server is gunicorn/19.9.0
+ content-type is application/json
+If it had changed, what could that mean about the server’s defenses?
+the server detected the user-agent and responed to it 
+the server has a firewall or server rules to defend against knonw scanning agents
+
+What three pieces of information from the steps above would be most useful in a reconnaissance report, and why?
+the server headers are useful as it reveals the web server software amd often version numbers. 
+the HTTPS status  is useful as is shows whether a virtual host is in use.
+it  tells whether curl or a scripting client will follow a redirect by default.
+the content-ype is usefel has you find out what the site serves such as html or json. 
+The body often contains version banners, JavaScript that reveals frameworks/APIs, comments, or accidentally exposed files
+
+One quick defensive suggestion an admin could use to reduce information leakage from headers.
+admins could remove or minimize server identifying headers
