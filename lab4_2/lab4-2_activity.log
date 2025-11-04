@@ -1,0 +1,17 @@
+ $ python lab4-2_probe.py scanme.nmap.org 22
+scanme.nmap.org:22 is OPEN
+
+python lab4-2_probe.py scanme.nmap.org 9999
+scanme.nmap.org:9999 is CLOSED (refused)
+
+python lab4-2_scan.py --host scanme.nmap.org --ports 20-1024 --workers 30 --timeout 1.0
+Scan complete in 4.80s — 2 open ports found
+Wrote results to scan_results.json
+{
+      "port": 22,
+      "open": true,
+      "reason": null
+},
+ python lab4-2_banner.py scanme.nmap.org 22
+Banner (HTTP probe):
+SSH-2.0-OpenSSH_6.6.1p1 Ubuntu-2ubuntu2.13
